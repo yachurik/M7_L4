@@ -38,9 +38,18 @@ def test_add_new_user(setup_database, connection):
 
 # Возможные варианты тестов:
 """
+
 Тест добавления пользователя с существующим логином.
 Тест успешной аутентификации пользователя.
 Тест аутентификации несуществующего пользователя.
 Тест аутентификации пользователя с неправильным паролем.
 Тест отображения списка пользователей.
 """
+def test_authenticate_user(setup_database, connection):
+    """Тест успешной аутентификации пользователя"""
+    add_user('testuser', 'test@mail.ru', 'pas123445')
+    assert authenticate_user('testuser', 'pas123445') == True
+
+def test_authenticate_unknow_user(setup_database, connection):
+    """Тест аутентификации несуществующего пользователя."""
+    assert authenticate_user("nonexisten", "pasdsdfgg") == False
